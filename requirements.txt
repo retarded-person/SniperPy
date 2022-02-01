@@ -1,0 +1,9 @@
+discord
+discord.py
+discum
+git+https://github.com/retarded-person/zzz.git
+requests==2.26.0
+requests-file==1.5.1
+requests-toolbelt==0.9.1
+tasksio==0.0.0
+ua-parser==0.10.0
