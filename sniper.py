@@ -180,7 +180,7 @@ print(f"{Fore.LIGHTBLUE_EX}[!] Scraping previous snipes complete!")
 
 base_url = 'https://discord.com/api/v9'
 header = {
-    "authorization": 'MzAxNTI5MTM2NDM3MDAyMjQw.YfYkPg.vqqzXecNkWJfpowD3XEbhcZAanM'
+    "authorization": str(token)
 }
 json = {}
 json2 = {}
@@ -220,18 +220,21 @@ def a(resp):
             else:
                 print(Fore.RED + f"[!] Fake Nitro Code - Code: {content}")
         if username == "GiveawayBot" and discriminator == "2381" or "giveaway" in username.lower():
-            if "Hosted by:" in m['embeds'][0]['description']:
-                target_str = m['embeds'][0]['description']
-                buf = io.StringIO(target_str)
-                res_str = buf.readlines()
-                res_str = res_str[len(res_str)-1]
-                res_str = res_str.replace("Hosted by:", "")
-                res_str = res_str.replace("<@", "")
-                res_str = res_str.replace(">", "")
-                res_str = res_str.replace(" ", "")
-                res_str = res_str.replace("\n", "")
-                json.update({f'{guildID}':res_str})
-                json2.update({f'{guildID}':m['embeds'][0]['author']['name']})
+            try:
+                if "Hosted by:" in m['embeds'][0]['description']:
+                    target_str = m['embeds'][0]['description']
+                    buf = io.StringIO(target_str)
+                    res_str = buf.readlines()
+                    res_str = res_str[len(res_str)-1]
+                    res_str = res_str.replace("Hosted by:", "")
+                    res_str = res_str.replace("<@", "")
+                    res_str = res_str.replace(">", "")
+                    res_str = res_str.replace(" ", "")
+                    res_str = res_str.replace("\n", "")
+                    json.update({f'{guildID}':res_str})
+                    json2.update({f'{guildID}':m['embeds'][0]['author']['name']})
+            except:
+                pass
 
             if "GIVEAWAY" in content:
                 if config.getboolean('settings', 'giveaway_join_delay') == False:
